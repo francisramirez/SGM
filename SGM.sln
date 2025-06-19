@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36109.1 d17.14
+VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -36,6 +36,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGM.Persistence.Test", "SGM.Persistence.Test\SGM.Persistence.Test.csproj", "{F527BFB8-A637-4B9C-BF8E-23D703860C4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGM.Application.Test", "SGM.Application.Test\SGM.Application.Test.csproj", "{DA41B0D5-E299-45A2-BC74-0E394A78A3E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{59453FC7-B514-41DF-83D3-ECD4510018E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{B7879DFB-4F0B-41FF-9576-FC42D1E60257} = {59453FC7-B514-41DF-83D3-ECD4510018E9}
+		{FF8DCDAA-2A8A-4E03-A27D-00CD48C6CF47} = {59453FC7-B514-41DF-83D3-ECD4510018E9}
 		{81287DD2-9B00-4C98-86C5-D4D68A666691} = {B7879DFB-4F0B-41FF-9576-FC42D1E60257}
 		{BD6BA1C9-9A22-4DB0-B6A6-46B42C1CB7F1} = {FF8DCDAA-2A8A-4E03-A27D-00CD48C6CF47}
 		{F8DFD5BC-5209-496B-8375-4E2E3F2F6F7B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}

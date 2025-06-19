@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SGM.Domain.Base.Person">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAICAAAAAQAAAAAAQAAACAAAAAAAAgAg=</HashCode>
+      <FileName>Base\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGM.Domain.Base.AuditEntiy">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAEAAAAAAACAAAACAAAAAAAAAAAgAAAAAAAQAAAAE=</HashCode>
+      <FileName>Base\AuditEntiy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGM.Domain.Entities.Insurance.InsuranceProvider">
+    <Position X="9" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Insurance\InsuranceProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGM.Domain.Entities.Insurance.NetworkType">
+    <Position X="7" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Insurance\NetworkType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGM.Domain.Entities.Users.Doctor">
+    <Position X="2" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Users\Doctor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGM.Domain.Entities.Users.Employee">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Users\Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SGM.Domain.Entities.Users.Patient">
+    <Position X="2.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Users\Patient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Base\" />
+    <Folder Include="Contracts\Services\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SGM.Domain\SGM.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
