@@ -1,4 +1,11 @@
 
+using Microsoft.EntityFrameworkCore;
+using SGM.Application.Contracts.Repositories.Insurance;
+using SGM.Application.Contracts.Services.insuranse;
+using SGM.Application.Services.Insurance;
+using SGM.Persistence.Context;
+using SGM.Persistence.Repositories;
+
 namespace SGM.Api
 {
     public class Program
@@ -8,6 +15,12 @@ namespace SGM.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+          //  builder.Services.AddDbContext<HealtSyncContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(""));
+
+
+            builder.Services.AddScoped<INetworkTypeRepository, NetworkTypeRepository>();
+            builder.Services.AddTransient<INetworkTypeService, NetworkTypeService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

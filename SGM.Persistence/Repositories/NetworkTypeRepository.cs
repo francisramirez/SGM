@@ -13,14 +13,15 @@ namespace SGM.Persistence.Repositories
 {
     public class NetworkTypeRepository : INetworkTypeRepository
     {
-        private readonly string _connectionString;
+        private readonly string? _connectionString;
         private readonly IConfiguration _configuration;
         private readonly ILogger<NetworkTypeRepository> _logger;
 
-        public NetworkTypeRepository(Microsoft.Extensions.Configuration.IConfiguration configuration,ILogger<NetworkTypeRepository> logger)
+        public NetworkTypeRepository(IConfiguration configuration,
+                                     ILogger<NetworkTypeRepository> logger)
         {
             _configuration = configuration;
-            _connectionString = _configuration[""];
+            _connectionString = _configuration["ConnectionStrings:HealtSyncConnection"];
             _logger = logger;
         }
 
@@ -83,7 +84,9 @@ namespace SGM.Persistence.Repositories
                         {
                             Size = 1000,
                             Direction = System.Data.ParameterDirection.Output
-                        };  
+                        };
+
+                        command.Parameters.Add(p_result);
 
                         await context.OpenAsync();
                         var result = await command.ExecuteNonQueryAsync();
