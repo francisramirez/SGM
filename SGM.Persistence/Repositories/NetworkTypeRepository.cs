@@ -14,11 +14,13 @@ namespace SGM.Persistence.Repositories
     public class NetworkTypeRepository : INetworkTypeRepository
     {
         private readonly string _connectionString;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<NetworkTypeRepository> _logger;
 
-        public NetworkTypeRepository(IConfiguration configuration,ILogger<NetworkTypeRepository> logger)
+        public NetworkTypeRepository(Microsoft.Extensions.Configuration.IConfiguration configuration,ILogger<NetworkTypeRepository> logger)
         {
-            _connectionString = IConfiguration["ConnectionStrings:HealtSyncConnection"];
+            _configuration = configuration;
+            _connectionString = _configuration[""];
             _logger = logger;
         }
 
@@ -137,15 +139,15 @@ namespace SGM.Persistence.Repositories
                         await connection.OpenAsync();
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
-                            List<NetworkType> networkTypes = new List<NetworkType>();
+                            List<GetNetworkTypeDto> networkTypes = new List<GetNetworkTypeDto>();
                             while (await reader.ReadAsync())
                             {
-                                NetworkType networkType = new NetworkType
+                                GetNetworkTypeDto networkType = new GetNetworkTypeDto
                                 {
                                     Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                     Name = reader.GetString(reader.GetOrdinal("Name")),
                                     Description = reader.GetString(reader.GetOrdinal("Description")),
-                                    CreateAt = reader.GetDateTime(reader.GetOrdinal("CreationDate")),
+                                    CreationDate = reader.GetDateTime(reader.GetOrdinal("CreationDate")),
                                 };
 
                                 networkTypes.Add(networkType);
