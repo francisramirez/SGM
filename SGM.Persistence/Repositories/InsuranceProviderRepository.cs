@@ -65,7 +65,7 @@ namespace SGM.Persistence.Repositories
 
                 _logger.LogInformation("Deleting InsuranceProvider entity: {@Entity}", entity);
 
-                InsuranceProvider existingEntity = await _context.InsuranceProviders.FindAsync(entity.Id);
+                InsuranceProvider existingEntity = await _context.InsuranceProviders.FindAsync(entity.InsuranceProviderID);
 
                 if (existingEntity is null)
                 {
@@ -73,9 +73,9 @@ namespace SGM.Persistence.Repositories
                     return pResult;
                 }
 
-                existingEntity.IsDeleted = true; // Soft delete
-                existingEntity.DeletedAt = DateTime.UtcNow;
-                existingEntity.DeletedBy = Environment.UserName;
+                existingEntity.IsActive = true; // Soft delete
+                existingEntity.UpdatedAt = DateTime.UtcNow;
+               
                 _context.InsuranceProviders.Update(existingEntity);
                 await _context.SaveChangesAsync();
 
@@ -148,26 +148,41 @@ namespace SGM.Persistence.Repositories
                 if (entity == null)
                 {
                     _logger.LogError("Attempted to update a null InsuranceProvider entity.");
-                    return OperationResult.Failure("InsuranceProvider entity cannot be null.");
+                    result = OperationResult.Failure("InsuranceProvider entity cannot be null.");
                 }
 
 
                 //validaciones campos //
 
-                InsuranceProvider insurance = await _context.InsuranceProviders.FindAsync(entity.Id);
+                InsuranceProvider insurance = await _context.InsuranceProviders.FindAsync(entity.InsuranceProviderID);
 
                 if (insurance is null)
                     return OperationResult.Failure("InsuranceProvider entity not found.");
 
                 insurance.Address = entity.Address;
-                insurance.ContactInfo = entity.ContactInfo;
-                insurance.Description = entity.Description;
-
+                insurance.AcceptedRegions = entity.AcceptedRegions;
+                insurance.City = entity.City;
+                insurance.Country = entity.Country;
+                insurance.CoverageDetails = entity.CoverageDetails; 
+                insurance.CustomerSupportContact = entity.CustomerSupportContact;
+                insurance.Email = entity.Email;
+                insurance.IsActive = entity.IsActive;
+                insurance.IsPreferred = entity.IsPreferred;
+                insurance.LogoUrl = entity.LogoUrl;
+                insurance.MaxCoverageAmount = entity.MaxCoverageAmount;
+                insurance.Name = entity.Name;
+                insurance.NetworkTypeId = entity.NetworkTypeId;
+                insurance.PhoneNumber = entity.PhoneNumber;
+                insurance.State = entity.State;
+                insurance.Website = entity.Website; 
+                insurance.ZipCode = entity.ZipCode; 
+                insurance.CreatedAt = entity.CreatedAt;
+         
 
                 _context.InsuranceProviders.Update(entity);
                 await _context.SaveChangesAsync();
                 _logger.LogInformation("InsuranceProvider entity updated successfully: {@Entity}", entity);
-                return OperationResult.Success("InsuranceProvider entity updated successfully.", entity);
+                result = OperationResult.Success("InsuranceProvider entity updated successfully.", entity);
             }
             catch (Exception ex)
             {
