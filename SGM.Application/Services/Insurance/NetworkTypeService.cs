@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using SGM.Application.Contracts.Repositories.Insurance;
 using SGM.Application.Contracts.Services.insuranse;
+using SGM.Application.Dtos.insurance.InsuranceProvider;
 using SGM.Application.Dtos.insurance.NetworkType;
 using SGM.Domain.Base;
 

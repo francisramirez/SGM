@@ -1,12 +1,9 @@
 ﻿
-using SGM.Domain.Base;
 
-
-namespace SGM.Domain.Entities.Insurance
+namespace SGM.Application.Dtos.insurance.InsuranceProvider
 {
-    public sealed class InsuranceProvider : AuditEntiy
+    public record CreateInsuranceProviderDto
     {
-        public int InsuranceProviderID { get; set; }
         public string? Name { get; set; }
 
         public string? PhoneNumber { get; set; }
@@ -38,7 +35,9 @@ namespace SGM.Domain.Entities.Insurance
         public string? AcceptedRegions { get; set; }
 
         public decimal? MaxCoverageAmount { get; set; }
-         
-       
+
+        public bool IsActive { get; set; } = true;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+     
     }
 }

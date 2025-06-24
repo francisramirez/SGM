@@ -73,7 +73,7 @@ namespace SGM.Persistence.Repositories
                     return pResult;
                 }
 
-                existingEntity.IsActive = true; // Soft delete
+                existingEntity.IsActive = false; // Soft delete
                 existingEntity.UpdatedAt = DateTime.UtcNow;
                
                 _context.InsuranceProviders.Update(existingEntity);
