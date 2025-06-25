@@ -79,6 +79,10 @@ namespace SGM.Persistence.Repositories
                 _context.InsuranceProviders.Update(existingEntity);
                 await _context.SaveChangesAsync();
 
+                _logger.LogInformation("InsuranceProvider entity deleted successfully: {@Entity}", existingEntity);
+
+                pResult = OperationResult.Success("InsuranceProvider entity deleted successfully.", existingEntity);
+
             }
             catch (Exception ex)
             {
@@ -179,7 +183,7 @@ namespace SGM.Persistence.Repositories
                 insurance.CreatedAt = entity.CreatedAt;
          
 
-                _context.InsuranceProviders.Update(entity);
+                _context.InsuranceProviders.Update(insurance);
                 await _context.SaveChangesAsync();
                 _logger.LogInformation("InsuranceProvider entity updated successfully: {@Entity}", entity);
                 result = OperationResult.Success("InsuranceProvider entity updated successfully.", entity);

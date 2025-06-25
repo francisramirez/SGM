@@ -1,11 +1,18 @@
 ﻿
 using SGM.Domain.Base;
+using System.ComponentModel.DataAnnotations;
+
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace SGM.Domain.Entities.Insurance
 {
+
+    [Table("InsuranceProviders", Schema = "Insurance")]
     public sealed class InsuranceProvider : AuditEntiy
     {
+
+
         public int InsuranceProviderID { get; set; }
         public string? Name { get; set; }
 
@@ -38,7 +45,7 @@ namespace SGM.Domain.Entities.Insurance
         public string? AcceptedRegions { get; set; }
 
         public decimal? MaxCoverageAmount { get; set; }
-         
-       
+
+
     }
 }

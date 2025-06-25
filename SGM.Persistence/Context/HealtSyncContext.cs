@@ -11,7 +11,8 @@ namespace SGM.Persistence.Context
         {
         }
         public DbSet<InsuranceProvider> InsuranceProviders { get; set; }
-        
+        public DbSet<NetworkType> NetworkTypes { get; set; }
+
     }
     
 }

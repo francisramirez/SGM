@@ -16,11 +16,15 @@ namespace SGM.Api
 
             // Add services to the container.
 
-          //  builder.Services.AddDbContext<HealtSyncContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(""));
-
+            builder.Services.AddDbContext<HealtSyncContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("HealtSyncConnection")));
 
             builder.Services.AddScoped<INetworkTypeRepository, NetworkTypeRepository>();
             builder.Services.AddTransient<INetworkTypeService, NetworkTypeService>();
+
+
+            builder.Services.AddScoped<IInsuranceProviderRepository, InsuranceProviderRepository>();
+            builder.Services.AddTransient<IInsuranceProviderService, InsuranceProviderService>();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

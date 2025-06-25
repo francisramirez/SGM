@@ -116,10 +116,7 @@ namespace SGM.Persistence.Repositories
                 presult.Message = $"An error occurred while adding the network type: {ex.Message}";
                 _logger.LogError(ex, "An error occurred while adding the network type: {Message}", ex.Message);
             }
-            finally 
-            {
-
-            }
+           
             return presult;
         }
 
