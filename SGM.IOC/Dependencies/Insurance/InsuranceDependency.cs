@@ -15,7 +15,7 @@ namespace SGM.IOC.Dependencies.Insurance
             services.AddTransient<INetworkTypeService, NetworkTypeService>();
 
 
-           // services.AddScoped<IInsuranceProviderRepository, InsuranceProviderRepository>();
+            services.AddScoped<IInsuranceProviderRepository, InsuranceProviderRepository>();
             services.AddTransient<IInsuranceProviderService, InsuranceProviderService>();
 
 

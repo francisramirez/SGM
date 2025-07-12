@@ -130,6 +130,11 @@ namespace SGM.Application.Services.Insurance
             try
             {
                 operationResult = await _providerRepository.GetByIdAsync(insuranceProviderId);
+
+                operationResult.IsSuccess = true;
+                operationResult.Message = "Insurance provider retrieved successfully."; 
+     
+               
             }
             catch (Exception ex)
             {
