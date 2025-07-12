@@ -1,36 +1,28 @@
 ﻿
-
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using SGM.Application.Contracts.Repositories.Insurance;
 using SGM.Domain.Base;
 using SGM.Domain.Entities.Insurance;
-using SGM.Persistence.Context;
+using SGM.Persistence.Test.Context;
 using System.Linq.Expressions;
 
-namespace SGM.Persistence.Repositories
+namespace SGM.Persistence.Test.Repositories
 {
-    public class InsuranceProviderRepository : IInsuranceProviderRepository
+    public class InsuranceProviderRepositoryMock : IInsuranceProviderRepository
     {
-        private readonly HealtSyncContext _context;
-        private readonly ILogger<InsuranceProviderRepository> _logger;
+        private readonly MedicalContext _context;
 
-        public InsuranceProviderRepository(HealtSyncContext context,
-                                          ILogger<InsuranceProviderRepository> logger)
+        public InsuranceProviderRepositoryMock(MedicalContext context)
         {
             _context = context;
-            _logger = logger;
         }
         public async Task<OperationResult> AddAsync(InsuranceProvider entity)
         {
             OperationResult operationResult = new OperationResult();
             try
             {
-                _logger.LogInformation("Adding InsuranceProvider entity: {@Entity}", entity);
-
                 if (entity == null)
                 {
-                    _logger.LogError("Attempted to add a null InsuranceProvider entity.");
                     return OperationResult.Failure("InsuranceProvider entity cannot be null.");
                 }
 
@@ -38,25 +30,23 @@ namespace SGM.Persistence.Repositories
 
                 if (string.IsNullOrEmpty(entity.Name))
                 {
-                    _logger.LogError("The Name is Requeried");
+
                     return OperationResult.Failure("The Name is Requeried");
                 }
 
                 if (entity.Name.Length > 50)
                 {
-                    _logger.LogError("The Name Length is invalid");
+
                     return OperationResult.Failure("The Name Length is invalid");
                 }
                 await _context.InsuranceProviders.AddAsync(entity);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("InsuranceProvider entity added successfully: {@Entity}", entity);
 
                 operationResult = OperationResult.Success("InsuranceProvider entity added successfully.", entity);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error adding InsuranceProvider entity");
                 operationResult = OperationResult.Failure("An error occurred while adding the InsuranceProvider entity.");
             }
             return operationResult;
@@ -69,12 +59,10 @@ namespace SGM.Persistence.Repositories
             {
                 if (entity == null)
                 {
-                    _logger.LogError("Attempted to delete a null InsuranceProvider entity.");
                     pResult = OperationResult.Failure("InsuranceProvider entity cannot be null.");
                     return pResult;
                 }
 
-                _logger.LogInformation("Deleting InsuranceProvider entity: {@Entity}", entity);
 
                 InsuranceProvider existingEntity = await _context.InsuranceProviders.FindAsync(entity.InsuranceProviderID);
 
@@ -86,18 +74,16 @@ namespace SGM.Persistence.Repositories
 
                 existingEntity.IsActive = false; // Soft delete
                 existingEntity.UpdatedAt = DateTime.UtcNow;
-               
+
                 _context.InsuranceProviders.Update(existingEntity);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("InsuranceProvider entity deleted successfully: {@Entity}", existingEntity);
 
                 pResult = OperationResult.Success("InsuranceProvider entity deleted successfully.", existingEntity);
 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error deleting InsuranceProvider entity");
                 return OperationResult.Failure("An error occurred while deleting the InsuranceProvider entity.");
             }
             return pResult;
@@ -114,19 +100,15 @@ namespace SGM.Persistence.Repositories
 
             try
             {
-                _logger.LogInformation("Retrieving InsuranceProvider entities with filter: {@Filter}", filter);
 
                 operationResult.Data = await _context.InsuranceProviders.Where(filter).ToListAsync();
 
                 operationResult = OperationResult.Success("Retrieving InsuranceProvider entities", operationResult.Data);
 
 
-                _logger.LogInformation("Retrieved InsuranceProvider");
-
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error retrieving InsuranceProvider entities");
                 operationResult = OperationResult.Failure("An error occurred while retrieving InsuranceProvider entities.");
             }
             return operationResult;
@@ -138,17 +120,16 @@ namespace SGM.Persistence.Repositories
 
             try
             {
-               
-                _logger.LogInformation("Retrieving InsuranceProvider entity with ID: {Id}", id);
+
                 operationResult.Data = await _context.InsuranceProviders.FindAsync(id);
 
                 operationResult = OperationResult.Success(OperationResult.Success("InsuranceProvider entity retrieved successfully.", operationResult.Data));
 
-                _logger.LogInformation("Retrieved InsuranceProvider");
             }
             catch (Exception ex)
             {
-                _logger.LogError("");
+                operationResult = OperationResult.Failure($"An error occurred while retrieving InsuranceProvider entities. {ex.Message}");
+
             }
 
             return operationResult;
@@ -160,10 +141,10 @@ namespace SGM.Persistence.Repositories
 
             try
             {
-                _logger.LogInformation("Updating InsuranceProvider entity: {@Entity}", entity);
+              
                 if (entity == null)
                 {
-                    _logger.LogError("Attempted to update a null InsuranceProvider entity.");
+                    
                     result = OperationResult.Failure("InsuranceProvider entity cannot be null.");
                 }
 
@@ -179,7 +160,7 @@ namespace SGM.Persistence.Repositories
                 insurance.AcceptedRegions = entity.AcceptedRegions;
                 insurance.City = entity.City;
                 insurance.Country = entity.Country;
-                insurance.CoverageDetails = entity.CoverageDetails; 
+                insurance.CoverageDetails = entity.CoverageDetails;
                 insurance.CustomerSupportContact = entity.CustomerSupportContact;
                 insurance.Email = entity.Email;
                 insurance.IsActive = entity.IsActive;
@@ -190,20 +171,18 @@ namespace SGM.Persistence.Repositories
                 insurance.NetworkTypeId = entity.NetworkTypeId;
                 insurance.PhoneNumber = entity.PhoneNumber;
                 insurance.State = entity.State;
-                insurance.Website = entity.Website; 
-                insurance.ZipCode = entity.ZipCode; 
+                insurance.Website = entity.Website;
+                insurance.ZipCode = entity.ZipCode;
                 insurance.CreatedAt = entity.CreatedAt;
-         
+
 
                 _context.InsuranceProviders.Update(insurance);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation("InsuranceProvider entity updated successfully: {@Entity}", entity);
-                result = OperationResult.Success("InsuranceProvider entity updated successfully.", entity);
+                     result = OperationResult.Success("InsuranceProvider entity updated successfully.", entity);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error updating InsuranceProvider entity");
-                return OperationResult.Failure("An error occurred while updating the InsuranceProvider entity.");
+                 return OperationResult.Failure("An error occurred while updating the InsuranceProvider entity.");
             }
 
 

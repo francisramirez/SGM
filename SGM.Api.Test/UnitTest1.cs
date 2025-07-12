@@ -1,4 +1,4 @@
-namespace SGM.Persistence.Test
+namespace SGM.Api.Test
 {
     public class UnitTest1
     {

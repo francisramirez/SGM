@@ -1,3 +1,6 @@
+using SGM.Persistence.Context;
+using SGM.IOC.Dependencies.Insurance;
+using Microsoft.EntityFrameworkCore;
 namespace SGM.Web
 {
     public class Program
@@ -7,6 +10,13 @@ namespace SGM.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddDbContext<HealtSyncContext>(options => 
+                options.UseSqlServer(builder.Configuration.GetConnectionString("HealtSyncConnection")));
+
+
+            builder.Services.AddInsuranceDependency();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

@@ -5,6 +5,7 @@ using SGM.Application.Contracts.Services.insuranse;
 using SGM.Application.Services.Insurance;
 using SGM.Persistence.Context;
 using SGM.Persistence.Repositories;
+using SGM.IOC.Dependencies.Insurance;
 
 namespace SGM.Api
 {
@@ -18,14 +19,9 @@ namespace SGM.Api
 
             builder.Services.AddDbContext<HealtSyncContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("HealtSyncConnection")));
 
-            builder.Services.AddScoped<INetworkTypeRepository, NetworkTypeRepository>();
-            builder.Services.AddTransient<INetworkTypeService, NetworkTypeService>();
+            builder.Services.AddInsuranceDependency();
 
-
-            builder.Services.AddScoped<IInsuranceProviderRepository, InsuranceProviderRepository>();
-            builder.Services.AddTransient<IInsuranceProviderService, InsuranceProviderService>();
-
-
+         
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

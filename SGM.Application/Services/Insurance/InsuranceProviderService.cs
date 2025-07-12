@@ -7,6 +7,7 @@ using SGM.Application.Contracts.Services.insuranse;
 using SGM.Application.Dtos.insurance.InsuranceProvider;
 using SGM.Domain.Base;
 using SGM.Domain.Entities.Insurance;
+using SGM.Application.Extentions.Insurance;
 
 namespace SGM.Application.Services.Insurance
 {
@@ -56,26 +57,29 @@ namespace SGM.Application.Services.Insurance
 
                 /// Validate the DTO before proceeding //
                 /// 
-                InsuranceProvider insuranceProvider = new InsuranceProvider
-                {
-                    Name = createInsuranceProviderDto.Name,
-                    PhoneNumber = createInsuranceProviderDto.PhoneNumber,
-                    Email = createInsuranceProviderDto.Email,
-                    Website = createInsuranceProviderDto.Website,
-                    Address = createInsuranceProviderDto.Address,
-                    City = createInsuranceProviderDto.City,
-                    State = createInsuranceProviderDto.State,
-                    Country = createInsuranceProviderDto.Country,
-                    ZipCode = createInsuranceProviderDto.ZipCode,
-                    CoverageDetails = createInsuranceProviderDto.CoverageDetails,
-                    LogoUrl = createInsuranceProviderDto.LogoUrl,
-                    IsPreferred = createInsuranceProviderDto.IsPreferred,
-                    NetworkTypeId = createInsuranceProviderDto.NetworkTypeId,
-                    CustomerSupportContact = createInsuranceProviderDto.CustomerSupportContact,
-                    AcceptedRegions = createInsuranceProviderDto.AcceptedRegions,
-                    MaxCoverageAmount = createInsuranceProviderDto.MaxCoverageAmount
+                //InsuranceProvider insuranceProvider = new InsuranceProvider
+                //{
+                //    Name = createInsuranceProviderDto.Name,
+                //    PhoneNumber = createInsuranceProviderDto.PhoneNumber,
+                //    Email = createInsuranceProviderDto.Email,
+                //    Website = createInsuranceProviderDto.Website,
+                //    Address = createInsuranceProviderDto.Address,
+                //    City = createInsuranceProviderDto.City,
+                //    State = createInsuranceProviderDto.State,
+                //    Country = createInsuranceProviderDto.Country,
+                //    ZipCode = createInsuranceProviderDto.ZipCode,
+                //    CoverageDetails = createInsuranceProviderDto.CoverageDetails,
+                //    LogoUrl = createInsuranceProviderDto.LogoUrl,
+                //    IsPreferred = createInsuranceProviderDto.IsPreferred,
+                //    NetworkTypeId = createInsuranceProviderDto.NetworkTypeId,
+                //    CustomerSupportContact = createInsuranceProviderDto.CustomerSupportContact,
+                //    AcceptedRegions = createInsuranceProviderDto.AcceptedRegions,
+                //    MaxCoverageAmount = createInsuranceProviderDto.MaxCoverageAmount
 
-                };
+                //};
+
+
+                InsuranceProvider insuranceProvider = createInsuranceProviderDto.ToInsuranceProviderDto();
 
                 operationResult = await _providerRepository.AddAsync(insuranceProvider);
 

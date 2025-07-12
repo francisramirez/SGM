@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SGM.Application\SGM.Application.csproj" />
+    <ProjectReference Include="..\SGM.IOC\SGM.IOC.csproj" />
     <ProjectReference Include="..\SGM.Persistence\SGM.Persistence.csproj" />
   </ItemGroup>
 
