@@ -7,6 +7,7 @@ using SGM.Application.Contracts.Repositories.Insurance;
 using SGM.Application.Dtos.insurance.NetworkType;
 using SGM.Domain.Base;
 using SGM.Domain.Entities.Insurance;
+using SGM.Persistence.Context;
 using System.Linq.Expressions;
 
 namespace SGM.Persistence.Repositories
@@ -16,13 +17,16 @@ namespace SGM.Persistence.Repositories
         private readonly string? _connectionString;
         private readonly IConfiguration _configuration;
         private readonly ILogger<NetworkTypeRepository> _logger;
+        private readonly HealtSyncContext _context;
 
         public NetworkTypeRepository(IConfiguration configuration,
-                                     ILogger<NetworkTypeRepository> logger)
+                                     ILogger<NetworkTypeRepository> logger, 
+                                     HealtSyncContext context)
         {
             _configuration = configuration;
             _connectionString = _configuration["ConnectionStrings:HealtSyncConnection"];
             _logger = logger;
+            _context = context;
         }
 
         public async Task<OperationResult> AddAsync(CreateNetworkTypeDto createNetworkTypeDto)
@@ -168,9 +172,44 @@ namespace SGM.Persistence.Repositories
             return presult;
         }
 
-        public Task<OperationResult> GetByIdAsync(int id)
+        public async Task<OperationResult> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            OperationResult presult = null;
+            try
+            {
+                var networkType = await _context.NetworkTypes.FindAsync(id);
+
+                if (networkType is null)
+                {
+                    presult = new OperationResult
+                    {
+                        IsSuccess = false,
+                        Message = "Network type not found."
+                    };
+                    _logger.LogWarning("Network type with ID {Id} not found.", id);
+                    return presult;
+                }
+
+
+                return OperationResult.Success("Network type retrieved successfully.", new GetNetworkTypeDto
+                {
+                    Id = networkType.NetworkTypeId,
+                    Name = networkType.Name,
+                    Description = networkType.Description,
+                    CreationDate = networkType.CreatedAt
+                });
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                presult.IsSuccess = false;
+                presult.Message = $"An error occurred while retrieving network types: {ex.Message}";
+                _logger.LogError(ex, "An error occurred while retrieving network types: {Message}", ex.Message);
+
+            }
+            return presult;
         }
 
         public async Task<OperationResult> UpdateAsync(ModifyNetworkTypeDto modifyNetworkTypeDto)

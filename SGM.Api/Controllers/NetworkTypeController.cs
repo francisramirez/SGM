@@ -30,7 +30,7 @@ namespace SGM.Api.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("GetNetworkTypeById")]
         public async Task<IActionResult> Get(int id)
         {
             var result = await _networkTypeService.GetNetworkTypesById(id);

@@ -16,8 +16,8 @@ namespace SGM.Application.Services.Insurance
         private readonly ILogger<NetworkTypeService> _logger;
         private readonly IConfiguration _configuration;
 
-        public NetworkTypeService(INetworkTypeRepository networkTypeRepository, 
-                                  ILogger<NetworkTypeService> logger, 
+        public NetworkTypeService(INetworkTypeRepository networkTypeRepository,
+                                  ILogger<NetworkTypeService> logger,
                                   IConfiguration configuration)
         {
             _networkTypeRepository = networkTypeRepository;
@@ -31,7 +31,7 @@ namespace SGM.Application.Services.Insurance
             {
                 _logger.LogInformation("Creando el network type", createNetworkTypeDto);
 
-                if (createNetworkTypeDto is null) 
+                if (createNetworkTypeDto is null)
                 {
                     operationResult = OperationResult.Failure("Objeto create DTO es requerido.");
                     return operationResult;
@@ -72,7 +72,7 @@ namespace SGM.Application.Services.Insurance
 
                 if (!operationResult.IsSuccess)
                     _logger.LogError($"Ocurrió en la funcinalidad : _networkTypeRepository.GetAllAsync(): {operationResult.Message}");
-                
+
                 return operationResult;
             }
             catch (Exception ex)
@@ -85,9 +85,12 @@ namespace SGM.Application.Services.Insurance
             return operationResult;
         }
 
-        public Task<OperationResult> GetNetworkTypesById(int networkTypeId)
+        public async Task<OperationResult> GetNetworkTypesById(int networkTypeId)
         {
-            throw new NotImplementedException();
+            OperationResult operationResult = new OperationResult();
+            operationResult = await _networkTypeRepository.GetByIdAsync(networkTypeId);
+
+            return operationResult;
         }
 
         public Task<OperationResult> UpdateNetworkTypes(ModifyNetworkTypeDto modifyNetworkTypeDto)
