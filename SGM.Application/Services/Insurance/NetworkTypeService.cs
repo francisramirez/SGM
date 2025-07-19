@@ -93,9 +93,13 @@ namespace SGM.Application.Services.Insurance
             return operationResult;
         }
 
-        public Task<OperationResult> UpdateNetworkTypes(ModifyNetworkTypeDto modifyNetworkTypeDto)
+        public async Task<OperationResult> UpdateNetworkTypes(ModifyNetworkTypeDto modifyNetworkTypeDto)
         {
-            throw new NotImplementedException();
+            OperationResult result = new OperationResult();
+
+            result = await _networkTypeRepository.UpdateAsync(modifyNetworkTypeDto);
+
+            return result;
         }
     }
 }

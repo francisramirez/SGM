@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SGM.Domain.Entities.Insurance;
 using SGM.Web.Models;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SGM.Web.Controllers
 {
@@ -156,10 +157,26 @@ namespace SGM.Web.Controllers
         // POST: NetworkTypeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(NetworkTypeEditModel model)
         {
+            NetworkTypeEditResponse editResponse = null;
             try
             {
+                model.updateAt = DateTime.Now; // Set the updateAt field to the current time
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri("http://localhost:5277/api/");
+
+                    var response = await client.PostAsJsonAsync("NetworkType/ModifyNetworkType", model);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseString = await response.Content.ReadAsStringAsync();
+                        editResponse = System.Text.Json.JsonSerializer.Deserialize<NetworkTypeEditResponse>(responseString);
+                    
+                    }
+
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
